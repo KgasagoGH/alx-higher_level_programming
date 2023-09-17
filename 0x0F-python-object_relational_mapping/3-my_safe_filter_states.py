@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" script that lists all states from the database hbtn_0e_0_usa """
+""" write one script that is safe from MySQL injections! """
 from sys import argv
 import MySQLdb
 if __name__ == "__main__":
@@ -12,8 +12,11 @@ if __name__ == "__main__":
         charset="utf8")
     cur = conn.cursor()
     try:
-        stmt = "SELECT * FROM states ORDER BY id ASC"
-        cur.execute(stmt)
+        search = argv[4]
+        stmt = """
+        SELECT * FROM states WHERE name LIKE BINARY %s ORDER BY id ASC
+        """
+        cur.execute(stmt, (search,))
         rtn = cur.fetchall()
     except MySQLdb.Error:
         try:

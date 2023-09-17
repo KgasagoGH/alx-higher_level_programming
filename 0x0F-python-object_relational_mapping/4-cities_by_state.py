@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" script that lists all states from the database hbtn_0e_0_usa """
+""" script that lists all cities from the database hbtn_0e_4_usa """
 from sys import argv
 import MySQLdb
 if __name__ == "__main__":
@@ -12,7 +12,12 @@ if __name__ == "__main__":
         charset="utf8")
     cur = conn.cursor()
     try:
-        stmt = "SELECT * FROM states ORDER BY id ASC"
+        stmt = """
+        SELECT cities.id, cities.name, states.name
+        FROM cities, states
+        WHERE cities.state_id = states.id
+        ORDER BY cities.id ASC
+        """
         cur.execute(stmt)
         rtn = cur.fetchall()
     except MySQLdb.Error:
