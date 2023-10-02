@@ -1,3 +1,3 @@
 #!/bin/bash
-# cURL - to the end
-curl -sL "$1"
+# curl to the end of the file
+curl -sX GET $1 -L
